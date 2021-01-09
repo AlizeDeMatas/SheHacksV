@@ -41,16 +41,16 @@
       <td id="progress-data"> 
   <div class="progress-custom">
     <div class="w3-light-grey w3-round-xlarge" id="progress">
-      <div class="w3-container w3-round-xlarge w3-green" style="height:15px;width:66%;" id="progress-bar"> <span id="labelprogress"> </span></div>
+      <div class="w3-container w3-round-xlarge w3-green" style="height:15px;width:66%;" id="progress-bar"> </div>
     </div>
   </div>
 </td>
-<td> $10 </td>
+<td id="label_progress"> $10 </td>
 </tr>
 </table>
   
 
-    <br> <p> Almost there, Anna! </p>
+    <br> <p id="almost"> Almost there, Anna! </p>
     </div>
 
     <div id = "borrowed3">
@@ -102,6 +102,7 @@
     // Get the input field
 var input = document.getElementById("payinput");
 var total=20;
+var needed =10;
 
 // Execute a function when the user releases a key on the keyboard
 input.addEventListener("keyup", function(event) {
@@ -112,13 +113,25 @@ input.addEventListener("keyup", function(event) {
     var input = document.getElementById("payinput").value;
     width = (parseInt(input)+total)/30;
     total += parseInt(input);
+    needed -= parseInt(input);
     console.log(width);
     if (width > 1){
       width =1;
     }
+
+    if (needed <=0){
+      needed =0;
+      var almost = document.getElementById("almost");
+      almost.innerHTML="Great Job, Anna!";
+    }
     width_p = (width *100) + "%";
+
     var progress = document.getElementById("progress-bar");
     progress.style.width = width_p;
+
+    var label = document.getElementById("label_progress");
+    label.innerHTML = "$" + needed;
+
   }
 });
 
