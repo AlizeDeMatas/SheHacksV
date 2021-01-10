@@ -403,7 +403,7 @@ var firebaseConfig = {
     var goal = 0;
 
     ref.on('value', function(snap) { 
-    	//if ($('.goalRow').length != 0) {
+    	if ($('.goalRow').length == 0) {
     		$('.container-fluid').append("<div class='row goalRow'></div>");
     		snap.forEach(function(child){
 
@@ -426,19 +426,19 @@ var firebaseConfig = {
 
     			var savedProgress = (currentlySaved/child.val().goalAmount) * 10 * 17.5;
 
-    			var goalComponent = "<div class='col-4'><div class='container'><div class='row justify-content-md-center'><div class='container pinkContainer'><div class='row'><div class='pinkContainerDollarSign' align='right'>" + dollarSignsString + "</div></div><div class='row'><div class='pinkContainterGoalTitle'>" + child.val().goalTitle + "</div></div><div class='row justify-content-md-center'><div class='pinkContainerGoalStatusBar'><div class='pinkContainerGoalStatusProgress' align='left'></div></div></div><div class='row justify-content-md-center'><div class='addToSavingsBtn'><div class='addToSavingsBtnText'>Add to Savings</div></div></div></div></div></div>";
+    			console.log(child.val().goalAmount);
 
-    			$('.goalRow').last().append(goalComponent);
+    			var goalComponent = "<div class='col-4'><div class='container'><div class='row justify-content-md-center'><div class='container pinkContainer'><div class='row'><div class='pinkContainerDollarSign' align='right'>" + dollarSignsString + "</div></div><div class='row'><div class='pinkContainterGoalTitle'>" + child.val().goalTitle + "</div></div><div class='row justify-content-md-center'><div class='pinkContainerGoalStatusBar'><div class='pinkContainerGoalStatusProgress' align='left'></div></div></div><div class='row justify-content-md-center'><div class='addToSavingsBtn'><div class='addToSavingsBtnText'>Add to Savings</div> <input type='hidden' id='goalAmount' name='goalAmount' value='" + child.val().goalAmount + "'></div></div></div></div></div>";
 
     			$('.addToSavingsBtn').on('click', function() {
-    				console.log(child.val().goalTitle);
+    				setUpModal($(this).find('#goalAmount').val());
     			});
+
+    			$('.goalRow').last().append(goalComponent);
+    			$('.pinkContainerGoalStatusProgress').css('width', savedProgress + 'px');
     		});
 
-    	//}
-    	/*else {
-    		$('.container-fluid').append("<div class='row'><h5>No goals recorded yet!</h5></div>");
-    	}*/
+    	}
     });
 
     $('.customCloseX').on('click', function() {
@@ -492,6 +492,7 @@ var firebaseConfig = {
 
     function setUpModal(goalAmount) {
     	$('.addToSavingsBtn').on('click', function() {
+    		console.log(goalAmount);
     		$('.savingsModal').find(".modalTitleText.greenText").text("$" + goalAmount);
     		$('.savingsModal').find(".modalTitleText.modalNote").text("$" + currentlySaved);
     		$('.savingsModal').modal({
