@@ -31,7 +31,7 @@
     <div id = "borrowed2">
       
     <p> You have borrowed <span class="pink"> $30 </span>.</p>
-    <p> You have paid back <span class ="pink"> $20 </span>.</p><br> 
+    <p> You have paid back <span class ="pink" id="paidback"> $20 </span>.</p><br> 
 
   <!-- PROGRESS BAR --> 
 
@@ -103,6 +103,7 @@
 var input = document.getElementById("payinput");
 var total=20;
 var needed =10;
+var paidback=20;
 
 // Execute a function when the user releases a key on the keyboard
 input.addEventListener("keyup", function(event) {
@@ -113,12 +114,15 @@ input.addEventListener("keyup", function(event) {
     var input = document.getElementById("payinput").value;
     width = (parseInt(input)+total)/30;
     total += parseInt(input);
+    paidback+=parseInt(input);
     needed -= parseInt(input);
     console.log(width);
     if (width > 1){
       width =1;
     }
 
+    var paidbacknow=document.getElementById("paidback");
+    paidbacknow.innerHTML="$"+paidback;
     if (needed <=0){
       needed =0;
       var almost = document.getElementById("almost");
