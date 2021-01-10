@@ -426,10 +426,15 @@ var firebaseConfig = {
 
     			var goalComponent = "<div class='col-4'><div class='container'><div class='row justify-content-md-center'><div class='container pinkContainer'><div class='row'><div class='pinkContainerDollarSign' align='right'>" + dollarSignsString + "</div></div><div class='row'><div class='pinkContainterGoalTitle'>" + child.val().goalTitle + "</div></div><div class='row justify-content-md-center'><div class='addToSavingsBtn'><div class='addToSavingsBtnText'>Add to Savings</div> <input type='hidden' id='goalAmount' name='goalAmount' value='" + child.val().goalAmount + "'></div></div></div></div></div>";
 
+				//$('.addToSavingsBtn').on('click', function() {
+					//console.log($(this).find('#goalAmount').val());
+    				//setUpModal($(this).find('#goalAmount').val());
+    			//});
+    			$('.goalRow').last().append(goalComponent);
     			$('.addToSavingsBtn').on('click', function() {
+    				console.log($(this).find('#goalAmount').val());
     				setUpModal($(this).find('#goalAmount').val());
     			});
-    			$('.goalRow').last().append(goalComponent);
     		});
 
     	}
@@ -463,8 +468,13 @@ var firebaseConfig = {
     		dollarSignsString = "$$$";
     	}
 
-    	var goalComponent = "<div class='col-4'><div class='container'><div class='row justify-content-md-center'><div class='container pinkContainer'><div class='row'><div class='pinkContainerDollarSign' align='right'>" + dollarSignsString + "</div></div><div class='row'><div class='pinkContainterGoalTitle'>" + goalTitle + "</div></div><div class='row justify-content-md-center'><div class='pinkContainerGoalStatusBar'><div class='pinkContainerGoalStatusProgress' align='left'></div></div></div><div class='row justify-content-md-center'><div id='addToSavings' class='addToSavingsBtn'><div class='addToSavingsBtnText'>Add to Savings</div></div></div></div></div></div>";
+    	var goalComponent = "<div class='col-4'><div class='container'><div class='row justify-content-md-center'><div class='container pinkContainer'><div class='row'><div class='pinkContainerDollarSign' align='right'>" + dollarSignsString + "</div></div><div class='row'><div class='pinkContainterGoalTitle'>" + goalTitle + "</div></div><div class='row justify-content-md-center'><div class='addToSavingsBtn'><div class='addToSavingsBtnText'>Add to Savings</div> <input type='hidden' id='goalAmount' name='goalAmount' value='" + goalAmount + "'></div></div></div></div></div>";
+
     	$('.goalRow').last().append(goalComponent);
+    	$('.addToSavingsBtn').on('click', function() {
+    		console.log($(this).find('#goalAmount').val());
+    		setUpModal($(this).find('#goalAmount').val());
+    	});
 
     	firebase.database().ref('goals/' + (numOfGoals + 1)).set({
     		goalTitle: goalTitle,
